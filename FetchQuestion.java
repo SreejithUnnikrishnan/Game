@@ -55,14 +55,33 @@ public class FetchQuestion {
 	
 	public String[] questionFetch(String table) throws SQLException{
 		int num;
+		String numId;
 		String questionNum;
 		Random rng = new Random();
-		num = rng.nextInt(50);
-		while(Arrays.binarySearch(qstasked, num) == -1){
-			num = rng.nextInt(50);			
+		num = rng.nextInt(20);
+		if(table == "simple_question"){
+			numId = "s"+num;
+		}
+		else if(table == "medium_question"){
+			numId = "m"+num;			
+		}
+		else{
+			numId="d"+num;
+		}
+		while(Arrays.binarySearch(qstasked, numId) == -1){
+			num = rng.nextInt(50);	
+			if(table == "simple_question"){
+				numId = "s"+num;
+			}
+			else if(table == "medium_question"){
+				numId = "m"+num;			
+			}
+			else{
+				numId="d"+num;
+			}
 		}
 		count = count + 1;
-		questionNum = Integer.toString(num);
+		questionNum = numId;
 		qstasked[count-1] = questionNum;
 		try{
 		DatabaseFetch data = new DatabaseFetch();
