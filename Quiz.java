@@ -101,6 +101,57 @@ public class Quiz {
 	public void setSelected(String selected) {
 		this.selected = selected;
 	}
+	
+	
+
+	public int[] getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(int[] amount) {
+		this.amount = amount;
+	}
+
+
+	public int getUserProgress() {
+		return userProgress;
+	}
+
+
+	public void setUserProgress(int userProgress) {
+		this.userProgress = userProgress;
+	}
+
+
+	public int getAmountWon() {
+		return amountWon;
+	}
+
+
+	public void setAmountWon(int amountWon) {
+		this.amountWon = amountWon;
+	}
+
+
+	public int getSavedamount() {
+		return savedamount;
+	}
+
+
+	public void setSavedamount(int savedamount) {
+		this.savedamount = savedamount;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 
 	public void showQuestion() throws SQLException{
@@ -147,13 +198,34 @@ public class Quiz {
 	public boolean checkAnswer(String select){
 		//this.selected = select;
 		if(select.equalsIgnoreCase(answer)){
-			return true;
+			amountWon = amount[userProgress-1];
+			if(amountWon == 10000 || amountWon == 320000 || amountWon == 10000000){
+				savedamount = amountWon;
+			}
+			if(savedamount == 10000000){
+				message = "User have Won $"+savedamount+"\nCongrats You have completed the game!!!";
+				//userProgress++;
+				return true;
+			}
+			else{
+				message = "You have selected the correct answer!!! Congrats you Won $"+amountWon;
+				userProgress++;
+				return true;
+			}
 		}
 		else{
-			return false;
+			if(savedamount >=10000){
+				message = "You have selected the Worng answer!!! You have Won $"+savedamount;
+				return false;
+			}
+			else{
+				message = "You have selected the Worng answer!!! Better luck next time!!";
+				return false;
+			}
+			
 		}
 	}
-	public void quiz() throws SQLException{
+	/*public void quiz() throws SQLException{
 		do{
 			showQuestion();
 			if(checkAnswer(this.selected)){
@@ -178,7 +250,7 @@ public class Quiz {
 		else{
 			message = "Please Try Again!!!";
 		}
-	}
+	}*/
 }	
 		
 	
